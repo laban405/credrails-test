@@ -15,13 +15,19 @@ import {
 } from "@/components/ui/form";
 import { useTheme } from "@/components/theme-provider";
 import { useAuth } from "@/features/auth/contexts/auth-context";
-import { loginSchema, LoginFormData } from "@/features/auth/types/login-form-data";
+import {
+  loginSchema,
+  LoginFormData,
+} from "@/features/auth/types/login-form-data";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { theme } = useTheme();
   const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
+  const from = location.state?.from?.pathname || "/";
   const { login, isLoading } = useAuth();
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
@@ -36,9 +42,9 @@ function LoginPage() {
     try {
       await login(data.email, data.password);
       navigate(from, { replace: true });
-      toast.success('Login successful')
+      toast.success("Login successful");
     } catch (error) {
-      toast.error('Login failed');
+      toast.error("Login failed");
     }
   };
 
@@ -73,11 +79,24 @@ function LoginPage() {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input
-                          type="password"
-                          placeholder="password"
-                          {...field}
-                        />
+                        <div className="relative">
+                          <Input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="password"
+                            {...field}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                          >
+                            {showPassword ? (
+                              <EyeOff className="h-4 w-4" />
+                            ) : (
+                              <Eye className="h-4 w-4" />
+                            )}
+                          </button>
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -90,7 +109,6 @@ function LoginPage() {
                 >
                   {isLoading ? "Logging in.." : "Log in"}
                 </Button>
-
 
                 <div className="mb-2 text-sm text-center">
                   Don't have an account?{" "}
