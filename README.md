@@ -1,67 +1,56 @@
+## How To Run Project Locally
+### Project requirements
+- Nodejs v20.14.0
+- NPM v10.7.0
+### Steps
+1. Clone the project from the repository.
+2. On your terminal navigate to project root.
+3. Run command  ```npm i``` to install project dependencies.
+4. Run command  ```npm run dev``` to start the development server.
+5. On your browser navigate to ```http://localhost:5173``` and you should see the app running.
 
-## best practices
-- feature based folder structure
-- separation of layers i.e ui, 
-- controller and model/data
-- dry
-- straight forward nameing of items
-- used vite intead of create-react-app
-- tailwind with shadcn
-- used axios mock adapter, access token is not secure just for demo purposes
-- 
+## Usage Instructions
+1. Initially a login screen is presented, navigate to sign up page and create an account. You will be redirected to login page.
+2. Login to your registered account at the login page, you will be redirected to home page
+3. You can now use the navigation bar to navigate to upload a file  or view uploaded file details.
+4. In the details screen you will have a list of previously uploaded files which you can then click view on one file to view button on each row to view the contents of the file.
+5. Enjoy
 
-# React + TypeScript + Vite
+#### - Note: Please note that file data is saved in local storage. Do not upload many files for this test application because browser local storage has a limit of size of data it can store. This might lead to unwanted behavior.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+#### - Note: ```axios-mock-adapter``` is used, access token is not secure and it is just for demo purposes
 
-Currently, two official plugins are available:
+## Some of the best practices implemented in the project
+### 1. Feature based folder structure
+Each feature folder contains all related files. This improves scalability, enhances modularity reduces cogntive load.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 2. Separation of Layers (UI, Controller, Model/Data)
 
-## Expanding the ESLint configuration
+UI renders JSX e.g form, Controller handles bussiness logic e.g uploading a file, model defines interaction with api i.e api calls with axios. This improves usability, testability and maintenability. It decouples the code.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### 3. DRY (Don’t Repeat Yourself)
 
-- Configure the top-level `parserOptions` property like this:
+Duplication of code is avoided as much as possible. This reduces time taken in fixing bugs thus saving time and improving consistency.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 4. Rubust naming conventions
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Clear and descriptive names are used for files, variables, functions e.t.c
+This automatically makes the code self documenting and improves readability
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### 5. Used Vite Instead of Create-React-App
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Vite is faster build tool with ES modules and hot module replacement
 
-Deployment hook
-https://api.vercel.com/v1/integrations/deploy/prj_mD2nYLNUyr5FjIWJIIISdhYNEvMY/CVwWG8imp6
+### 6. Tailwind with Shadcn/UI
+
+Combination of utility first styling from Tailwind css and prebuilt, customizable react components from shadcn/ui ensures rapid development, consistency and easy of customization
+
+### Other best practices included but not limited to are
+- Lazy loading and code splitting
+- Consistent Formatting with ESLint and Prettier
+
+
+
+
 
 
