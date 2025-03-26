@@ -25,7 +25,7 @@ apiClient.interceptors.response.use(
 
     if (error.response?.status === 401) {
       localStorage.removeItem("authToken");
-      console.log("window location run");
+      console.log("window location run 401");
       window.location.href = "/login";
     }
     return Promise.reject(error);

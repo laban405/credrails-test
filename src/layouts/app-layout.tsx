@@ -5,14 +5,16 @@ import { useAuth } from "@/features/auth/contexts/auth-context";
 import { useEffect } from "react";
 
 const AppLayout = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated,isLoading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    console.log('isAuthenticated,isLoading', isAuthenticated,isLoading);
+    
+    if (!isAuthenticated && !isLoading) {
       navigate("/login", { replace: true });
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate,isLoading]);
   return (
     <div className="flex flex-col min-h-screen">
       <Navigation />

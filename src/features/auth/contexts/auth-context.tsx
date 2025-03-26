@@ -21,6 +21,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const checkAuth = async () => {
+      setIsLoading(true)
       try {
         const { data } = await getUser();
         setUser(data.user);
