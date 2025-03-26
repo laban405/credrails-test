@@ -64,18 +64,6 @@ const mock = new AxiosMockAdapter(apiClient,{
   delayResponse:3000
 });
 
-// mock.onGet().reply((config) => {
-//   console.log('Intercepted GET request to:', config.url);
-//   console.log('Headers:', config.headers);
-//   return [404, { message: 'No mock handler for this GET route' }];
-// });
-
-// mock.onPost().reply((config) => {
-//   console.log('Intercepted POST request to:', config.url);
-//   console.log('Headers:', config.headers);
-//   return [404, { message: 'No mock handler for this POST route' }];
-// });
-
 mock.onGet("/api/auth/me").reply((config) => {
   const token = config.headers?.Authorization?.replace("Bearer ", "");
 

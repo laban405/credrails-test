@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { createBrowserRouter, redirect, RouteObject } from "react-router-dom";
+import { createBrowserRouter, RouteObject } from "react-router-dom";
 import Layout from "@/layouts/layout";
 import AppLayout from "@/layouts/app-layout";
 

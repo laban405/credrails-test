@@ -202,14 +202,6 @@ export const FileUploadForm = () => {
               </FormItem>
             )}
           />
-          {/* <div>
-            <input
-              type="file"
-              accept=".csv,.xlsx"
-              onChange={handleFileChange}
-            />
-            {errors.file && <p>{errors.file.message}</p>}
-          </div> */}
           <FormField
             name="file"
             control={control}

@@ -26,11 +26,11 @@ export const fileUploadSchema = z
   })
   .refine((data) => data.startDate <= data.endDate, {
     message: "Start date cannot be after end date",
-    path: ["startDate"], // Show error on startDate field
+    path: ["startDate"],
   })
   .refine((data) => data.endDate >= data.startDate, {
     message: "End date cannot be before start date",
-    path: ["endDate"], // Show error on endDate field
+    path: ["endDate"],
   });
 
 export type FileUploadFormData = z.infer<typeof fileUploadSchema>;
