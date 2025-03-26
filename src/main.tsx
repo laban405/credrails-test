@@ -38,7 +38,7 @@ createRoot(document.getElementById("root")!).render(
                   },
                 }}
               />
-              <Suspense fallback={"loading..."}>
+              <Suspense fallback={<div className="text-center py-4">Loading...</div>}>
                 <RouterProvider router={router} />
               </Suspense>
             </div>
