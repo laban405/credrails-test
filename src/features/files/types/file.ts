@@ -10,4 +10,6 @@ export interface CsvFileDetails {
     recordsCount: number;
     status: 'processed';
     createdAt: string;
+    columns:string[],
+    data:any[]
   }

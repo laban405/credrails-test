@@ -3,9 +3,9 @@ import React from "react";
 
 function FilesListPage() {
   return (
-    <>
+    <div className="flex items-center flex-col">
       <FilesList />
-    </>
+    </div>
   );
 }
 

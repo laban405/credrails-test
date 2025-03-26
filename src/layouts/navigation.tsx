@@ -1,27 +1,34 @@
+import { ToggleTheme } from '@/components/toggle-theme';
+import { Button } from '@/components/ui/button';
 import { useAuth } from '@/features/auth/contexts/auth-context';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Navigation = () => {
   const { user, logout, isAuthenticated,isLoading } = useAuth();
 
-  if(isLoading) return <>Loading...</>
+  const linkStyles = ({ isActive }) =>
+    isActive
+      ? 'text-primary font-semibold'
+      : 'hover:text-primary transition-colors duration-200';
+
+  if(isLoading) return <div className="text-center py-4">Loading...</div>
 
   return (
-    <nav className="bg-gray-800 text-white shadow-lg">
+    <nav className="shadow-lg border-b">
       <div className="container mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            <Link to="/" className="text-xl font-bold hover:text-gray-300">
-              MyApp
-            </Link>
+            <NavLink to="/" className="text-xl font-bold">
+              CSV App
+            </NavLink>
             {isAuthenticated && (
-              <div className="hidden md:flex space-x-6">
-                <Link to="/upload" className="hover:text-gray-300">
+              <div className="md:flex space-x-6">
+                <NavLink to="/upload" className={linkStyles}>
                   Upload
-                </Link>
-                <Link to="/details" className="hover:text-gray-300">
+                </NavLink>
+                <NavLink to="/details" className={linkStyles}>
                   Details
-                </Link>
+                </NavLink>
              
               </div>
             )}
@@ -30,30 +37,31 @@ const Navigation = () => {
           <div className="flex items-center space-x-4">
             {isAuthenticated ? (
               <>
-                <span className="hidden sm:inline">Welcome, {user?.firstName}</span>
-                <button
+                <span className="hidden sm:inline">{user?.firstName}</span>
+                <Button
                   onClick={logout}
-                  className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded transition duration-200"
+                  className="bpx-4 py-2 rounded transition duration-200"
                 >
                   Logout
-                </button>
+                </Button>
               </>
             ) : (
               <>
                 <Link 
                   to="/login" 
-                  className="px-4 py-2 rounded hover:bg-gray-700 transition duration-200"
+                  className="px-4 py-2 rounded transition duration-200"
                 >
                   Login
                 </Link>
                 <Link 
                   to="/sign-up" 
-                  className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded transition duration-200"
+                  className="px-4 py-2 rounded transition duration-200"
                 >
                   Sign Up
                 </Link>
               </>
             )}
+              <ToggleTheme />
           </div>
         </div>
       </div>

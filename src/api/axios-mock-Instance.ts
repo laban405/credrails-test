@@ -136,7 +136,7 @@ mock.onPost("/api/auth/signup").reply((config) => {
 });
 
 mock.onPost("/api/files/upload").reply((config) => {
-  const csvRecord = config.data;
+  const csvRecord = JSON.parse(config.data);
   const userId = config.headers?.Authorization?.replace("Bearer ", "");
   console.log("csvRecord post", csvRecord);
   console.log("user id post", userId);
@@ -159,7 +159,7 @@ mock.onGet("/api/files/uploads").reply((config) => {
   }
 
   const userId = token ?? null;
-  const files = mockDB.files.find((file) => file.userId === userId);
+  const files = mockDB.files.filter((file) => file.userId === userId);
   return [200, { files }];
 });
 

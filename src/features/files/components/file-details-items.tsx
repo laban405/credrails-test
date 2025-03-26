@@ -1,6 +1,4 @@
-import * as React from "react";
 import {
-  ColumnDef,
   ColumnFiltersState,
   SortingState,
   VisibilityState,
@@ -11,15 +9,12 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
@@ -31,94 +26,26 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { CsvFileDetails } from "../types/file";
-import { useUserFiles } from "../hooks/use-file-upload";
 import { useState } from "react";
-import { formatFileSize } from "@/utils/formatters";
-import FileDetailsDialog from "./file-details-dialog";
+import { buildTableColumns } from "@/utils/buildTableColumns";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 
-const columns: ColumnDef<CsvFileDetails>[] = [
-  {
-    accessorKey: "fileName",
-    header: "File Name",
-    cell: ({ row }) => (
-      <div className="">{row.getValue("fileName")}</div>
-    ),
-  },
-  {
-    accessorKey: "fileSize",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          File Size
-          <ArrowUpDown />
-        </Button>
-      );
-    },
-    cell: ({ row }) => (
-      <div className="">{formatFileSize(row.getValue("fileSize"))}</div>
-    ),
-  },
-  {
-    accessorKey: "startDate",
-    header: () => <div className="text-right">Start Date</div>,
-    cell: ({ row }) => {
-      return (
-        <div className="text-right font-medium">
-          {row.getValue("startDate")}
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "endDate",
-    header: () => <div className="text-right">End Date</div>,
-    cell: ({ row }) => {
-      return <div className="text-right font-medium">{row.getValue("endDate")}</div>;
-    },
-  },
-  {
-    accessorKey: "recordsCount",
-    header: () => <div className="text-right">Records Count</div>,
-    cell: ({ row }) => {
-      return (
-        <div className="text-right font-medium">
-          {row.getValue("recordsCount")}
-        </div>
-      );
-    },
-  },
-  {
-    id: "actions",
-    enableHiding: false,
-    header: () => <div className="">Action</div>,
-    cell: ({ row }) => {
-      const csvFile = row.original;
-
-      return (
-       
-             <FileDetailsDialog data={csvFile.data} columnsList={csvFile.columns}/>
-           
-      );
-    },
-  },
-];
-
-export function FilesList() {
-  const { data, isLoading, isError } = useUserFiles();
-
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
+export function FileDetailsItems({
+  data,
+  columnsList,
+}: {
+  data: any[];
+  columnsList: string[];
+}) {
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+
+  const builtColumns = buildTableColumns(columnsList);
 
   const table = useReactTable({
     data: data,
-    columns,
+    columns: builtColumns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -126,31 +53,30 @@ export function FilesList() {
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
-    enableRowSelection:false,
-    enableMultiRowSelection:false,
-    enableMultiRemove:false,
+    enableRowSelection: false,
+    enableMultiRowSelection: false,
+    enableMultiRemove: false,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
     },
   });
-  if (isLoading) return <div className="text-center">Loading files...</div>;
-  if (isError) return <div>Error loading files</div>;
+
   return (
-    <div className="w-full">
-      <div className="flex items-center py-4">
+    <div className="w-full h-full">
+      <div className="flex py-4 px-1 ">
         <Input
           placeholder="Filter file records..."
           value={
-            (table.getColumn("fileName")?.getFilterValue() as string) ?? ""
+            (table.getColumn(columnsList[0])?.getFilterValue() as string) ?? ""
           }
           onChange={(event) =>
-            table.getColumn("fileName")?.setFilterValue(event.target.value)
+            table.getColumn(columnsList[0])?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
-        <DropdownMenu>
+        {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
               Columns <ChevronDown />
@@ -175,9 +101,10 @@ export function FilesList() {
                 );
               })}
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu> */}
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border  max-h-[65vh]" style={{overflowY:'scroll'}}>
+      <ScrollArea>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -217,7 +144,7 @@ export function FilesList() {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
+                  colSpan={builtColumns.length}
                   className="h-24 text-center"
                 >
                   No results.
@@ -226,7 +153,10 @@ export function FilesList() {
             )}
           </TableBody>
         </Table>
+        </ScrollArea>
+     
       </div>
+      
       <div className="flex items-center justify-end space-x-2 py-4">
        
         <div className="space-x-2">

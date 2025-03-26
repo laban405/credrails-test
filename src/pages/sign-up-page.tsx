@@ -57,14 +57,8 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="flex h-screen">
-      <div className="md:w-1/2  hidden md:flex items-center justify-center p-8">
-        <img
-          src={theme === "dark" ? "/darkmode.jpg" : "/lightmode.jpg"}
-          alt="sign up"
-          className="w-full h-3/4 object-cover rounded-lg shadow-lg"
-        />
-      </div>
+    <div className="flex justify-center">
+     
       <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-8">
         <div className="w-full max-w-md">
           <h2 className="text-4xl font-bold mb-6">Create an account</h2>

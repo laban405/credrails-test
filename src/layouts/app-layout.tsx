@@ -16,7 +16,7 @@ const AppLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navigation />
-      <main className="flex-grow">
+      <main className="flex-grow m-4">
         <div className="container mx-auto p-4">
           <Outlet />
         </div>

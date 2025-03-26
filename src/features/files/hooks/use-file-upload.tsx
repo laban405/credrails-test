@@ -4,7 +4,7 @@ import { uploadCSVFile, fetchUserFiles, } from '../services/file-upload-service'
 import { CsvFileDetails } from '../types/file';
 import { toast } from 'sonner';
 
-export const useUploadCSV = () => {
+export const useUploadCSV = (navigate) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: CsvFileDetails) => {
@@ -13,6 +13,7 @@ export const useUploadCSV = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["files"] });
       toast.success("File uploaded successfully!");
+      navigate('/details')
     },
     onError: () => toast.error("Error saving file"),
   });
