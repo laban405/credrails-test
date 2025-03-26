@@ -52,6 +52,9 @@ Combination of utility first styling from Tailwind css and prebuilt, customizabl
 ### Other best practices included but not limited to are
 - Lazy loading and code splitting
 - Consistent Formatting with ESLint and Prettier
+- Used React Query which is a powerful library for managing server-side state in React applications
+
+
 
 
 
