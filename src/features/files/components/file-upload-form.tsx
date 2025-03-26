@@ -84,6 +84,8 @@ export const FileUploadForm = () => {
     }
   };
 
+  if(uploadMutation.isPending) return <div className="text-center py-4">Processing...</div>
+  if(uploadMutation.error) return <div className="text-center py-4">Error uploading file, please refresh page...</div>
   return (
     <div className="max-w-md mx-auto p-4 border rounded-lg shadow">
       <h2 className="text-xl font-semibold mb-4">Upload CSV File</h2>

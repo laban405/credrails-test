@@ -60,7 +60,9 @@ const persistDB = () => {
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockDB));
 };
 
-const mock = new AxiosMockAdapter(apiClient);
+const mock = new AxiosMockAdapter(apiClient,{
+  delayResponse:3000
+});
 
 // mock.onGet().reply((config) => {
 //   console.log('Intercepted GET request to:', config.url);
