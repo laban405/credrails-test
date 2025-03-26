@@ -61,7 +61,7 @@ const persistDB = () => {
 };
 
 const mock = new AxiosMockAdapter(apiClient,{
-  delayResponse:3000
+  delayResponse:1000
 });
 
 mock.onGet("/api/auth/me").reply((config) => {
