@@ -1,3 +1,7 @@
+### Note: I used vercel instead of heroku for deployment because heroku does not have free tire anymore
+
+https://www.credrails-test.vercel.app
+
 ## How To Run Project Locally
 ### Project requirements
 - Nodejs v20.14.0
