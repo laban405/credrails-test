@@ -38,7 +38,16 @@ createRoot(document.getElementById("root")!).render(
                   },
                 }}
               />
-              <Suspense fallback={<div className="text-center py-4">Loading...</div>}>
+              <Suspense
+                fallback={
+                  <div className="flex justify-center items-center mt-24">
+                    <div
+                      className="text-center w-12 h-12 rounded-full animate-spin
+                   border border-solid border-primary border-t-transparent"
+                    ></div>
+                  </div>
+                }
+              >
                 <RouterProvider router={router} />
               </Suspense>
             </div>

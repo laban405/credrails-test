@@ -11,7 +11,7 @@ const Navigation = () => {
       ? 'text-primary font-semibold'
       : 'hover:text-primary transition-colors duration-200';
 
-  if(isLoading) return <div className="text-center py-4">Loading...</div>
+  if(isLoading) return <></>
 
   return (
     <nav className="shadow-lg border-b">

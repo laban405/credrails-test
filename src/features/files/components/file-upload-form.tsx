@@ -85,7 +85,12 @@ export const FileUploadForm = () => {
   };
 
   if (uploadMutation.isPending)
-    return <div className="text-center py-4">Processing...</div>;
+    return (
+      <div
+        className="w-12 h-12 rounded-full animate-spin
+border border-solid border-primary border-t-transparent"
+      ></div>
+    );
   if (uploadMutation.error)
     return (
       <div className="text-center py-4">
@@ -237,7 +242,6 @@ export const FileUploadForm = () => {
           </Button>
         </form>
       </FormProvider>
-      {uploadMutation.isPending && <p>Uploading...</p>}
     </div>
   );
 };

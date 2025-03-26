@@ -38,9 +38,7 @@ const columns: ColumnDef<CsvFileDetails>[] = [
   {
     accessorKey: "fileName",
     header: "File Name",
-    cell: ({ row }) => (
-      <div className="">{row.getValue("fileName")}</div>
-    ),
+    cell: ({ row }) => <div className="">{row.getValue("fileName")}</div>,
   },
   {
     accessorKey: "fileSize",
@@ -74,7 +72,9 @@ const columns: ColumnDef<CsvFileDetails>[] = [
     accessorKey: "endDate",
     header: () => <div className="text-right">End Date</div>,
     cell: ({ row }) => {
-      return <div className="text-right font-medium">{row.getValue("endDate")}</div>;
+      return (
+        <div className="text-right font-medium">{row.getValue("endDate")}</div>
+      );
     },
   },
   {
@@ -96,9 +96,7 @@ const columns: ColumnDef<CsvFileDetails>[] = [
       const csvFile = row.original;
 
       return (
-       
-             <FileDetailsDialog data={csvFile.data} columnsList={csvFile.columns}/>
-           
+        <FileDetailsDialog data={csvFile.data} columnsList={csvFile.columns} />
       );
     },
   },
@@ -123,16 +121,22 @@ export function FilesList() {
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
-    enableRowSelection:false,
-    enableMultiRowSelection:false,
-    enableMultiRemove:false,
+    enableRowSelection: false,
+    enableMultiRowSelection: false,
+    enableMultiRemove: false,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
     },
   });
-  if (isLoading) return <div className="text-center">Loading files...</div>;
+  if (isLoading)
+    return (
+      <div
+        className="w-12 h-12 rounded-full animate-spin
+  border border-solid border-primary border-t-transparent"
+      ></div>
+    );
   if (isError) return <div>Error loading files</div>;
   return (
     <div className="w-full">
@@ -225,7 +229,6 @@ export function FilesList() {
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-       
         <div className="space-x-2">
           <Button
             variant="outline"
