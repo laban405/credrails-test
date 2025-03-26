@@ -2,7 +2,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useAuth } from "@/features/auth/contexts/auth-context";
-import { parseCSV } from "@/utils/parseCsv";
+import { parseFile } from "@/utils/parseFile";
 import { CsvFileDetails } from "../types/file";
 import {
   FileUploadFormData,
@@ -62,7 +62,7 @@ export const FileUploadForm = () => {
   const onSubmit = async (data: FileUploadFormData) => {
     try {
       const file: File = data.file;
-      const csvDetails = await parseCSV(file);
+      const csvDetails = await parseFile(file);
       const processedCsvRecord: CsvFileDetails = {
         id: Date.now(),
         userId: user.id,
@@ -84,8 +84,14 @@ export const FileUploadForm = () => {
     }
   };
 
-  if(uploadMutation.isPending) return <div className="text-center py-4">Processing...</div>
-  if(uploadMutation.error) return <div className="text-center py-4">Error uploading file, please refresh page...</div>
+  if (uploadMutation.isPending)
+    return <div className="text-center py-4">Processing...</div>;
+  if (uploadMutation.error)
+    return (
+      <div className="text-center py-4">
+        Error uploading file, please refresh page...
+      </div>
+    );
   return (
     <div className="max-w-md mx-auto p-4 border rounded-lg shadow">
       <h2 className="text-xl font-semibold mb-4">Upload CSV File</h2>
