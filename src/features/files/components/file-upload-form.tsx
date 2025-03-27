@@ -236,7 +236,7 @@ border border-solid border-primary border-t-transparent"
           <Button
             type="submit"
             disabled={uploadMutation.isPending}
-            className="my-4 ml-auto"
+            className="my-4 w-full"
           >
             Upload
           </Button>
